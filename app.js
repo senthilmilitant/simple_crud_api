@@ -1,22 +1,32 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import router from './routs/productrouts.js'
 
+dotenv.config()
 const app = express()
 const PORT = 3000
 
+//use middleware
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
+
+//DEFAULT ROUTES
 app.get('/', (req, res) => {
   res.send('Hello World!')
-})
+});
 
-app.listen(PORT,()=>{
-    console.log(`This server is running on port ${PORT}`)
-})
-
+//PRODUCT API ROUTES
+app.use("/api/products",router)
 
 
-
-mongoose.connect('mongodb+srv://senthilmilitant:xODEvzoW1FDNPncm@cluster0.5ephglg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-  .then(() => console.log('Connected!'))
-  .catch(()=>{
-    console.log(`connection failed!`)
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() =>{
+    console.log('MONGO DB Connected!')
+    app.listen(PORT,()=>{console.log(`This server is running on port ${PORT}`)})
   })
+  .catch((error)=>{
+    console.log(error.message)
+  })
+
+  
