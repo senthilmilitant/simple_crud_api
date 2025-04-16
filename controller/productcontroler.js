@@ -1,7 +1,5 @@
  import Product from "../models/productmodels.js";
 
-
-
  //GET ALL PRODUCT
  export const getallproduct = async(req,res)=>{
     try {
@@ -39,7 +37,7 @@ export const updateproduct = async(req,res)=>{
          const {id}= req.params
          const product = await Product.findByIdAndUpdate(id,req.body)
 
-        if(! product) {
+        if(!product) {
          return res.status(500).json({message:"Product not found"})
         }
          const UpdatedProduct = await Product.findById(id)

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const ProductSchema = mongoose.Schema(
+const ProductSchema = new Schema(
     {
         name:{
             type:String,
@@ -19,12 +19,12 @@ const ProductSchema = mongoose.Schema(
         image:{
             type:String,
             required:false,
-            default:0
+            default:''
         }
     },
-    {
-        timestamps:true
-    }
+    {versionKey:false,
+     timestamp:true}
+    
 )
 const Product = mongoose.model('product',ProductSchema)
 

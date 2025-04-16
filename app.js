@@ -20,13 +20,22 @@ app.get('/', (req, res) => {
 app.use("/api/products",router)
 
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() =>{
-    console.log('MONGO DB Connected!')
-    app.listen(PORT,()=>{console.log(`This server is running on port ${PORT}`)})
-  })
-  .catch((error)=>{
-    console.log(error.message)
-  })
-
-  
+// mongoose.connect(process.env.MONGODB_URI)
+//   .then(() =>{
+//     console.log('MONGO DB Connected!')
+//     app.listen(PORT,()=>{console.log(`This server is running on port ${PORT}`)})
+//   })
+//   .catch((error)=>{
+//     console.log(error.message)
+//   })
+ const connectdb = async()=>{
+    try {
+      mongoose.connect(process.env.MONGODB_URI)
+      console.log('MONGO DB Connected!')
+      app.listen(PORT,()=>{console.log(`This server is running on port ${PORT}`)})
+      
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  connectdb()
